@@ -1,6 +1,6 @@
-# Smithery configuration for Warlon Catering MCP Server
+# Smithery configuration for Warteg Online MCP Server
 startCommand:
-  type: http
+  type: stdio
   configSchema:
     type: object
     required:
@@ -9,13 +9,22 @@ startCommand:
     properties:
       warlon_username:
         type: string
-        title: Warlon Username
-        description: Your Warlon Catering account username
+        title: Warteg Online Username
+        description: Your Warteg Online account username
       warlon_password:
         type: string
-        title: Warlon Password
-        description: Your Warlon Catering account password
+        title: Warteg Online Password
+        description: Your Warteg Online account password
         format: password
+  commandFunction: |
+    (config) => ({
+      command: 'uv',
+      args: ['run', 'warlon_mcp.py'],
+      env: {
+        WARLON_USERNAME: config.warlon_username,
+        WARLON_PASSWORD: config.warlon_password
+      }
+    })
   exampleConfig:
     warlon_username: "your_username"
     warlon_password: "your_password"
