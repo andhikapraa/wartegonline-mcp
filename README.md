@@ -4,7 +4,9 @@ Manage your Warteg Online meal deliveries using AI assistants like Claude. Simpl
 
 ## About Warteg Online
 
-Warteg Online provides healthy, home-style Indonesian meals (warteg style) delivered to your door. Perfect for busy professionals who want nutritious meals without the hassle of cooking.
+Warteg Online provides healthy, home-style Indonesian meals delivered to your door. With 500+ rotating menu options prepared by former 5-star hotel chefs, it's perfect for busy professionals who want nutritious, restaurant-quality meals without the hassle of cooking.
+
+**Service Areas:** Jakarta, Depok, Tangerang, Bekasi
 
 - **Website:** [warloncatering.com](https://warloncatering.com)
 - **Instagram:** [@wartegonline.idn](https://www.instagram.com/wartegonline.idn/)
