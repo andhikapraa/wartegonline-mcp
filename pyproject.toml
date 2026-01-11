@@ -1,0 +1,15 @@
+[project]
+name = "warungonline"
+version = "0.1.0"
+description = "MCP server for Warlon Catering self-service platform"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mcp[cli]>=1.25.0",
+    "requests>=2.32.5",
+    "uvicorn>=0.30.0",
+    "starlette>=0.38.0",
+]
+
+[project.scripts]
+warlon-mcp = "warlon_mcp:main"

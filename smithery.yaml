@@ -1,0 +1,21 @@
+# Smithery configuration for Warlon Catering MCP Server
+startCommand:
+  type: http
+  configSchema:
+    type: object
+    required:
+      - warlon_username
+      - warlon_password
+    properties:
+      warlon_username:
+        type: string
+        title: Warlon Username
+        description: Your Warlon Catering account username
+      warlon_password:
+        type: string
+        title: Warlon Password
+        description: Your Warlon Catering account password
+        format: password
+  exampleConfig:
+    warlon_username: "your_username"
+    warlon_password: "your_password"
