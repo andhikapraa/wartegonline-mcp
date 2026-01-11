@@ -32,6 +32,8 @@ The AI understands your request and handles everything automatically.
 | **Reschedule** | "Move Friday's lunch to next Monday" |
 | **Change Address** | "Deliver to my office address tomorrow" |
 | **Check Summary** | "How many deliveries do I have left?" |
+| **View Restrictions** | "What are my food restrictions?" |
+| **Update Restrictions** | "I'm allergic to seafood" or "Remove spicy food from my meals" |
 
 ## Getting Started
 
@@ -118,7 +120,7 @@ The tool will inform Claude if an action can't be completed. For any issues with
 
 ### Technical Details
 
-This is an MCP (Model Context Protocol) server that provides 12 tools for delivery management:
+This is an MCP (Model Context Protocol) server that provides 15 tools for delivery management:
 
 - `login` - Authenticate with Warlon
 - `get_package_orders` - List all orders
@@ -132,6 +134,9 @@ This is an MCP (Model Context Protocol) server that provides 12 tools for delive
 - `hold_deliveries` - Pause for date range
 - `bulk_reschedule` - Move multiple deliveries
 - `change_address` - Update delivery address
+- `get_available_restrictions` - List all dietary restriction options
+- `get_my_restrictions` - View current dietary restrictions
+- `update_restrictions` - Set dietary restrictions (pantangan)
 
 **Features:**
 - Jakarta timezone (UTC+7) support

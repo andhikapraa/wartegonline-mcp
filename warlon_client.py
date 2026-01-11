@@ -481,6 +481,82 @@ class WarlonClient:
         order = self.get_order_details(order_id)
         return order.addresses
 
+    def get_available_restrictions(self) -> List[Dict]:
+        """
+        Get all available dietary restrictions (pantangan).
+
+        Returns:
+            List of restriction dictionaries with id, name, and group
+        """
+        if not self._is_authenticated:
+            raise RuntimeError("Not authenticated. Call login() first.")
+
+        url = f"{self.BASE_URL}/api/package-restrictions/available"
+        response = self.session.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        return data.get("data", [])
+
+    def get_user_restrictions(self) -> List[Dict]:
+        """
+        Get the current user's dietary restrictions.
+
+        Returns:
+            List of the user's current restrictions
+        """
+        if not self._is_authenticated:
+            raise RuntimeError("Not authenticated. Call login() first.")
+
+        # The user's restrictions are returned in the user data from various endpoints
+        # We can get them by making a request that returns user data
+        url = f"{self.BASE_URL}/api/customer-package-orders"
+        response = self.session.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        # Extract user restrictions from the response
+        result = data.get("data", {})
+        if isinstance(result, dict):
+            orders = result.get("data", [])
+            if orders and len(orders) > 0:
+                user = orders[0].get("user", {})
+                return user.get("userPackageRestrictions", [])
+        return []
+
+    def update_restrictions(self, restriction_ids: List[int]) -> Dict:
+        """
+        Update the user's dietary restrictions.
+
+        Args:
+            restriction_ids: List of restriction IDs to set.
+                           Empty list removes all restrictions.
+
+        Returns:
+            Dictionary with success status and updated restrictions
+        """
+        if not self._is_authenticated:
+            raise RuntimeError("Not authenticated. Call login() first.")
+
+        url = f"{self.BASE_URL}/api/users/restrictions-update"
+        payload = {"restrictionIds": restriction_ids}
+
+        try:
+            response = self.session.put(url, json=payload)
+            response.raise_for_status()
+            data = response.json()
+            return {
+                "success": True,
+                "message": data.get("message", "Restrictions updated"),
+                "restrictions": data.get("data", [])
+            }
+        except requests.RequestException as e:
+            return {
+                "success": False,
+                "message": f"Failed to update restrictions: {e}",
+                "restrictions": []
+            }
+
 
 def main():
     """Example usage of the WarlonClient."""

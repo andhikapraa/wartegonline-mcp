@@ -641,6 +641,122 @@ def change_address(
     }
 
 
+@mcp.tool()
+def get_available_restrictions() -> list[dict]:
+    """
+    Get all available dietary restrictions (pantangan) that can be set.
+
+    Returns:
+        List of available restrictions grouped by category (Protein, Additional, Rasa)
+    """
+    client = get_client()
+    restrictions = client.get_available_restrictions()
+
+    # Group by category for better readability
+    grouped = {}
+    for r in restrictions:
+        group_name = r.get("packageRestrictionGroup", {}).get("name", "Other")
+        if group_name not in grouped:
+            grouped[group_name] = []
+        grouped[group_name].append({
+            "id": r.get("id"),
+            "name": r.get("name"),
+        })
+
+    return {
+        "restrictions_by_group": grouped,
+        "all_restrictions": [
+            {"id": r.get("id"), "name": r.get("name")}
+            for r in restrictions
+        ],
+    }
+
+
+@mcp.tool()
+def get_my_restrictions() -> dict:
+    """
+    Get the current user's dietary restrictions (pantangan).
+
+    Returns:
+        List of the user's current dietary restrictions
+    """
+    client = get_client()
+    restrictions = client.get_user_restrictions()
+
+    if not restrictions:
+        return {
+            "has_restrictions": False,
+            "message": "No dietary restrictions set",
+            "restrictions": [],
+        }
+
+    return {
+        "has_restrictions": True,
+        "count": len(restrictions),
+        "restrictions": [
+            {
+                "id": r.get("packageRestriction", {}).get("id"),
+                "name": r.get("packageRestriction", {}).get("name"),
+            }
+            for r in restrictions
+        ],
+    }
+
+
+@mcp.tool()
+def update_restrictions(restriction_ids: Optional[str] = None) -> dict:
+    """
+    Update the user's dietary restrictions (pantangan).
+
+    Args:
+        restriction_ids: Comma-separated list of restriction IDs to set.
+                        Use empty string or omit to clear all restrictions.
+                        Example: "5,11" for No Pedas and No Mayo
+
+    Available restriction IDs:
+        Protein: 1=No Udang, 2=No Ikan, 3=No Sapi, 13=No Cumi, 15=No Seafood
+        Additional: 4=No Kecombrang, 7=No Sayur, 10=No Telur, 12=No Olahan Susu, 14=No Kacang
+        Rasa: 5=No Pedas, 11=No Mayo
+
+    Returns:
+        Result of the update operation
+    """
+    client = get_client()
+
+    # Parse restriction IDs
+    ids_list = []
+    if restriction_ids and restriction_ids.strip():
+        try:
+            ids_list = [int(id.strip()) for id in restriction_ids.split(",")]
+        except ValueError:
+            return {
+                "success": False,
+                "message": "Invalid restriction IDs. Use comma-separated numbers (e.g., '5,11')",
+            }
+
+    result = client.update_restrictions(ids_list)
+
+    if result["success"]:
+        updated = [
+            {
+                "id": r.get("packageRestriction", {}).get("id"),
+                "name": r.get("packageRestriction", {}).get("name"),
+            }
+            for r in result["restrictions"]
+        ]
+        return {
+            "success": True,
+            "message": result["message"],
+            "restrictions_set": len(updated),
+            "restrictions": updated if updated else "None (all restrictions cleared)",
+        }
+
+    return {
+        "success": False,
+        "message": result["message"],
+    }
+
+
 def main():
     """Run the MCP server."""
     # Check if running in HTTP mode (for Smithery deployment)
