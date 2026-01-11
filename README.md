@@ -1,87 +1,143 @@
 # Warlon Catering MCP Server
 
-An MCP (Model Context Protocol) server for managing delivery schedules on the Warlon Catering self-service platform.
+Manage your Warlon Catering meal deliveries using AI assistants like Claude. Simply talk to Claude in natural language to view, reschedule, or manage your daily meal subscriptions.
 
-## Features
+## About Warlon Catering
 
-- **12 Tools** for complete delivery management:
-  - `login` - Authenticate with Warlon
-  - `get_package_orders` - List all orders
-  - `get_order_details` - Get package info
-  - `get_schedule` - View full delivery schedule
-  - `get_orders_by_date_range` - Filter deliveries by date
-  - `get_available_addresses` - List delivery addresses
-  - `get_delivery_summary` - Stats and counts
-  - `reschedule_delivery` - Move single delivery
-  - `skip_day` - Skip a date (move to end)
-  - `hold_deliveries` - Pause for date range
-  - `bulk_reschedule` - Move multiple deliveries
-  - `change_address` - Update delivery address
+Warlon Catering provides healthy, home-style Indonesian meals delivered to your door. Perfect for busy professionals who want nutritious meals without the hassle of cooking.
 
-- **Timezone Support** - Handles Jakarta timezone (UTC+7) correctly
-- **Sunday Validation** - Prevents scheduling on Sundays
+- **Website:** [warloncatering.com](https://warloncatering.com)
+- **Instagram:** [@wartegonline.idn](https://www.instagram.com/wartegonline.idn/)
+- **Customer Dashboard:** [customer.warloncatering.com](https://customer.warloncatering.com/)
 
-## Installation
+## What is This?
 
-### Via Smithery (Recommended)
+This is a special tool that lets AI assistants (like Claude) manage your Warlon Catering deliveries for you. Instead of logging into the dashboard and clicking around, you can simply chat with Claude and say things like:
+
+- "Show me my delivery schedule for this week"
+- "Skip tomorrow's lunch, I have a meeting"
+- "Hold all my deliveries from January 20-25 while I'm traveling"
+- "Change my dinner delivery address to my office"
+- "What's the summary of my remaining deliveries?"
+
+The AI understands your request and handles everything automatically.
+
+## What Can It Do?
+
+| Task | What You Can Say |
+|------|------------------|
+| **View Schedule** | "Show my deliveries" or "What's coming this week?" |
+| **Skip a Day** | "Skip Monday's delivery" |
+| **Hold Deliveries** | "Pause my meals from Jan 10 to Jan 15" |
+| **Reschedule** | "Move Friday's lunch to next Monday" |
+| **Change Address** | "Deliver to my office address tomorrow" |
+| **Check Summary** | "How many deliveries do I have left?" |
+
+## Getting Started
+
+### Prerequisites
+
+You'll need:
+1. A Warlon Catering subscription (sign up at [warloncatering.com](https://warloncatering.com))
+2. Your account username and password
+3. Claude Desktop app installed on your computer
+
+### Installation
+
+#### Option 1: Via Smithery (Easiest)
+
+Open your terminal and run:
 
 ```bash
-npx -y @smithery/cli install @your-username/warlon-mcp --client claude
+npx -y @smithery/cli install @anthropics/warlon-mcp --client claude
 ```
 
-### Local Installation
+#### Option 2: Manual Setup
 
-```bash
-# Clone the repository
-git clone https://github.com/your-username/warlon-mcp.git
-cd warlon-mcp
+1. **Download the tool:**
+   ```bash
+   git clone https://github.com/anthropics/warlon-mcp.git
+   cd warlon-mcp
+   ```
 
-# Install dependencies
-uv sync
+2. **Install dependencies:**
+   ```bash
+   uv sync
+   ```
 
-# Run the server
-uv run warlon_mcp.py
-```
+3. **Configure Claude Desktop:**
 
-## Configuration
+   Open Claude Desktop settings and add this MCP server configuration:
 
-### Environment Variables
+   **On Mac:** Edit `~/.config/claude/claude_desktop_config.json`
 
-| Variable | Description |
-|----------|-------------|
-| `WARLON_USERNAME` | Your Warlon account username |
-| `WARLON_PASSWORD` | Your Warlon account password |
+   **On Windows:** Edit `%APPDATA%\Claude\claude_desktop_config.json`
 
-### Claude Desktop Configuration
+   ```json
+   {
+     "mcpServers": {
+       "warlon": {
+         "command": "uv",
+         "args": ["run", "--directory", "/path/to/warlon-mcp", "warlon_mcp.py"],
+         "env": {
+           "WARLON_USERNAME": "your_username",
+           "WARLON_PASSWORD": "your_password"
+         }
+       }
+     }
+   }
+   ```
 
-Add to your Claude Desktop config (`~/.config/claude/claude_desktop_config.json`):
+   Replace `/path/to/warlon-mcp` with the actual folder location, and enter your Warlon login credentials.
 
-```json
-{
-  "mcpServers": {
-    "warlon": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/warlon-mcp", "warlon_mcp.py"],
-      "env": {
-        "WARLON_USERNAME": "your_username",
-        "WARLON_PASSWORD": "your_password"
-      }
-    }
-  }
-}
-```
+4. **Restart Claude Desktop**
 
-## Usage Examples
+### First Time Use
 
-Once connected, you can ask Claude:
+After setup, open Claude Desktop and try saying:
 
-- "Show my delivery schedule"
-- "Skip tomorrow's delivery"
-- "Hold deliveries from Jan 20 to Jan 25"
-- "Move my lunch on Friday to Monday"
-- "What's my delivery summary?"
+> "Login to Warlon and show me my delivery schedule"
 
-## Development
+Claude will connect to your account and display your upcoming meals.
+
+## Common Questions
+
+**Is this official?**
+Yes, this tool is designed to work with the official Warlon Catering platform.
+
+**Is my password safe?**
+Your credentials are stored locally on your computer and are only used to authenticate with Warlon's servers. They are never shared with anyone else.
+
+**Can I still use the website/app?**
+Absolutely! This tool is just another way to manage your deliveries. You can still use [customer.warloncatering.com](https://customer.warloncatering.com/) anytime.
+
+**What if something goes wrong?**
+The tool will inform Claude if an action can't be completed. For any issues with your actual subscription, contact Warlon Catering directly through their [Instagram](https://www.instagram.com/wartegonline.idn/) or website.
+
+## For Developers
+
+### Technical Details
+
+This is an MCP (Model Context Protocol) server that provides 12 tools for delivery management:
+
+- `login` - Authenticate with Warlon
+- `get_package_orders` - List all orders
+- `get_order_details` - Get package info
+- `get_schedule` - View full delivery schedule
+- `get_orders_by_date_range` - Filter deliveries by date
+- `get_available_addresses` - List delivery addresses
+- `get_delivery_summary` - Stats and counts
+- `reschedule_delivery` - Move single delivery
+- `skip_day` - Skip a date (move to end)
+- `hold_deliveries` - Pause for date range
+- `bulk_reschedule` - Move multiple deliveries
+- `change_address` - Update delivery address
+
+**Features:**
+- Jakarta timezone (UTC+7) support
+- Sunday delivery validation (no deliveries on Sundays)
+
+### Development
 
 ```bash
 # Install dev dependencies
@@ -93,6 +149,11 @@ uv run warlon_mcp.py
 # Run in HTTP mode (for testing remote deployment)
 uv run warlon_mcp.py --http
 ```
+
+## Support
+
+- **Warlon Catering Support:** Contact via [Instagram](https://www.instagram.com/wartegonline.idn/) or [website](https://warloncatering.com)
+- **Technical Issues:** Open an issue on the GitHub repository
 
 ## License
 
