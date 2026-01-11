@@ -1,10 +1,10 @@
-# Warlon Catering MCP Server
+# Warteg Online MCP Server
 
-Manage your Warlon Catering meal deliveries using AI assistants like Claude. Simply talk to Claude in natural language to view, reschedule, or manage your daily meal subscriptions.
+Manage your Warteg Online meal deliveries using AI assistants like Claude. Simply talk to Claude in natural language to view, reschedule, or manage your daily meal subscriptions.
 
-## About Warlon Catering
+## About Warteg Online
 
-Warlon Catering provides healthy, home-style Indonesian meals delivered to your door. Perfect for busy professionals who want nutritious meals without the hassle of cooking.
+Warteg Online provides healthy, home-style Indonesian meals (warteg style) delivered to your door. Perfect for busy professionals who want nutritious meals without the hassle of cooking.
 
 - **Website:** [warloncatering.com](https://warloncatering.com)
 - **Instagram:** [@wartegonline.idn](https://www.instagram.com/wartegonline.idn/)
@@ -12,7 +12,7 @@ Warlon Catering provides healthy, home-style Indonesian meals delivered to your 
 
 ## What is This?
 
-This is a special tool that lets AI assistants (like Claude) manage your Warlon Catering deliveries for you. Instead of logging into the dashboard and clicking around, you can simply chat with Claude and say things like:
+This is a special tool that lets AI assistants (like Claude) manage your Warteg Online deliveries for you. Instead of logging into the dashboard and clicking around, you can simply chat with Claude and say things like:
 
 - "Show me my delivery schedule for this week"
 - "Skip tomorrow's lunch, I have a meeting"
@@ -40,7 +40,7 @@ The AI understands your request and handles everything automatically.
 ### Prerequisites
 
 You'll need:
-1. A Warlon Catering subscription (sign up at [warloncatering.com](https://warloncatering.com))
+1. A Warteg Online subscription (sign up at [warloncatering.com](https://warloncatering.com))
 2. Your account username and password
 3. Claude Desktop app installed on your computer
 
@@ -90,7 +90,7 @@ npx -y @smithery/cli install @anthropics/warlon-mcp --client claude
    }
    ```
 
-   Replace `/path/to/warlon-mcp` with the actual folder location, and enter your Warlon login credentials.
+   Replace `/path/to/warlon-mcp` with the actual folder location, and enter your Warteg Online login credentials.
 
 4. **Restart Claude Desktop**
 
@@ -98,23 +98,23 @@ npx -y @smithery/cli install @anthropics/warlon-mcp --client claude
 
 After setup, open Claude Desktop and try saying:
 
-> "Login to Warlon and show me my delivery schedule"
+> "Login to Warteg Online and show me my delivery schedule"
 
 Claude will connect to your account and display your upcoming meals.
 
 ## Common Questions
 
 **Is this official?**
-Yes, this tool is designed to work with the official Warlon Catering platform.
+Yes, this tool is designed to work with the official Warteg Online platform.
 
 **Is my password safe?**
-Your credentials are stored locally on your computer and are only used to authenticate with Warlon's servers. They are never shared with anyone else.
+Your credentials are stored locally on your computer and are only used to authenticate with Warteg Online's servers. They are never shared with anyone else.
 
 **Can I still use the website/app?**
 Absolutely! This tool is just another way to manage your deliveries. You can still use [customer.warloncatering.com](https://customer.warloncatering.com/) anytime.
 
 **What if something goes wrong?**
-The tool will inform Claude if an action can't be completed. For any issues with your actual subscription, contact Warlon Catering directly through their [Instagram](https://www.instagram.com/wartegonline.idn/) or website.
+The tool will inform Claude if an action can't be completed. For any issues with your actual subscription, contact Warteg Online directly through their [Instagram](https://www.instagram.com/wartegonline.idn/) or website.
 
 ## For Developers
 
@@ -157,7 +157,7 @@ uv run warlon_mcp.py --http
 
 ## Support
 
-- **Warlon Catering Support:** Contact via [Instagram](https://www.instagram.com/wartegonline.idn/) or [website](https://warloncatering.com)
+- **Warteg Online Support:** Contact via [Instagram](https://www.instagram.com/wartegonline.idn/) or [website](https://warloncatering.com)
 - **Technical Issues:** Open an issue on the GitHub repository
 
 ## License

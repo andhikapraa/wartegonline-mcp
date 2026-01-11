@@ -1,7 +1,7 @@
 """
-Warlon Catering API Client
+Warteg Online API Client
 
-A Python class to interact with the Warlon self-service catering platform.
+A Python class to interact with the Warteg Online self-service catering platform.
 Supports authentication, fetching orders, and rescheduling deliveries.
 
 Usage:
@@ -67,7 +67,7 @@ class PackageOrder:
 
 class WarlonClient:
     """
-    Client for interacting with the Warlon Catering self-service API.
+    Client for interacting with the Warteg Online self-service API.
 
     This client allows you to:
     - Authenticate with username/password
@@ -93,11 +93,11 @@ class WarlonClient:
 
     def login(self, username: str, password: str) -> bool:
         """
-        Authenticate with the Warlon API.
+        Authenticate with the Warteg Online API.
 
         Args:
-            username: Your Warlon username
-            password: Your Warlon password
+            username: Your Warteg Online username
+            password: Your Warteg Online password
 
         Returns:
             True if login was successful, False otherwise

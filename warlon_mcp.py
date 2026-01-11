@@ -1,7 +1,7 @@
 """
-Warlon Catering MCP Server
+Warteg Online MCP Server
 
-An MCP server that exposes the Warlon Catering API functionality as tools.
+An MCP server that exposes the Warteg Online API functionality as tools.
 Allows AI assistants to interact with the catering platform for managing
 delivery schedules.
 
@@ -54,7 +54,7 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
 
 
 mcp = FastMCP(
-    "Warlon Catering",
+    "Warteg Online",
     lifespan=app_lifespan,
 )
 
@@ -68,11 +68,11 @@ def get_client() -> WarlonClient:
 @mcp.tool()
 def login(username: str, password: str) -> str:
     """
-    Authenticate with the Warlon Catering platform.
+    Authenticate with the Warteg Online platform.
 
     Args:
-        username: Your Warlon username
-        password: Your Warlon password
+        username: Your Warteg Online username
+        password: Your Warteg Online password
 
     Returns:
         Success or failure message
@@ -780,7 +780,7 @@ def main():
 
         # Get port from environment (Smithery sets PORT)
         port = int(os.environ.get("PORT", 8081))
-        print(f"Starting Warlon MCP Server in HTTP mode on port {port}")
+        print(f"Starting Warteg Online MCP Server in HTTP mode on port {port}")
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
     else:
         # Default: run in stdio mode for local use
