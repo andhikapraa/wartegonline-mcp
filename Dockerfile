@@ -1,24 +1,34 @@
-FROM python:3.12-slim
+# Use a Python image with uv pre-installed
+FROM ghcr.io/astral-sh/uv:python3.12-alpine
 
+# Install the project into `/app`
 WORKDIR /app
 
-# Install uv for fast dependency management
-RUN pip install uv
+# Enable bytecode compilation
+ENV UV_COMPILE_BYTECODE=1
 
-# Copy project files
-COPY pyproject.toml .
-COPY README.md .
-COPY warlon_client.py .
-COPY warlon_mcp.py .
+# Copy from the cache instead of linking since it's a mounted volume
+ENV UV_LINK_MODE=copy
 
-# Install dependencies
-RUN uv pip install --system -e .
+# Install the project's dependencies using the lockfile and settings
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
 
-# Set environment variable for HTTP mode
-ENV MCP_HTTP_MODE=1
+# Then, add the rest of the project source code and install it
+COPY . /app
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked --no-dev
 
-# Expose port (Smithery will set PORT env var)
-EXPOSE 8081
+# Place executables in the environment at the front of the path
+ENV PATH="/app/.venv/bin:$PATH"
 
-# Run the server in HTTP mode
-CMD ["python", "warlon_mcp.py", "--http"]
+# Set transport mode to HTTP
+ENV TRANSPORT=http
+
+# Reset the entrypoint, don't invoke `uv`
+ENTRYPOINT []
+
+# Run the application
+CMD ["python", "src/main.py"]

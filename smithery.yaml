@@ -1,1 +1,22 @@
-runtime: "python"
+runtime: "container"
+
+build:
+  dockerfile: "Dockerfile"
+  dockerBuildPath: "."
+
+startCommand:
+  type: "http"
+  configSchema:
+    type: object
+    properties:
+      warlon_username:
+        type: string
+        title: "Warteg Online Username"
+        description: "Your Warteg Online account username"
+      warlon_password:
+        type: string
+        title: "Warteg Online Password"
+        description: "Your Warteg Online account password"
+  exampleConfig:
+    warlon_username: "your_username"
+    warlon_password: "your_password"
