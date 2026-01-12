@@ -56,6 +56,7 @@ async def app_lifespan(server: FastMCP) -> AsyncIterator[AppContext]:
 mcp = FastMCP(
     "Warteg Online",
     lifespan=app_lifespan,
+    stateless_http=True,  # Required for Smithery hosted deployment
 )
 
 
