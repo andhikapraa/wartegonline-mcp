@@ -7,16 +7,15 @@ build:
 startCommand:
   type: "http"
   configSchema:
-    type: object
+    type: "object"
     properties:
       warlon_username:
-        type: string
-        title: "Warteg Online Username"
+        type: "string"
         description: "Your Warteg Online account username"
       warlon_password:
-        type: string
-        title: "Warteg Online Password"
+        type: "string"
         description: "Your Warteg Online account password"
+    required: []
   exampleConfig:
     warlon_username: "your_username"
     warlon_password: "your_password"

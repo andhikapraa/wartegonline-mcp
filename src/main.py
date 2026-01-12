@@ -681,8 +681,8 @@ def main():
         # Apply config middleware
         app = SmitheryConfigMiddleware(app)
 
-        # Use Smithery PORT environment variable
-        port = int(os.environ.get("PORT", 8081))
+        # Use Smithery PORT environment variable (8080 as required by Smithery proxy)
+        port = int(os.environ.get("PORT", 8080))
         print(f"Listening on port {port}")
         uvicorn.run(app, host="0.0.0.0", port=port, log_level="info")
     else:
