@@ -10,6 +10,7 @@ Usage:
     Playground: uv run playground
 """
 
+import os
 from datetime import datetime, timedelta
 from typing import Optional
 
@@ -37,13 +38,23 @@ def get_client(ctx: Context) -> WarlonClient:
     if session_id not in _clients:
         _clients[session_id] = WarlonClient()
 
-        # Auto-login if credentials provided in session config
+        # Try session config first, then fall back to environment variables
+        username = None
+        password = None
+
         config = ctx.session_config
         if config:
             username = getattr(config, 'warlon_username', None)
             password = getattr(config, 'warlon_password', None)
-            if username and password:
-                _clients[session_id].login(username, password)
+
+        # Fall back to environment variables
+        if not username:
+            username = os.environ.get('WARLON_USERNAME')
+        if not password:
+            password = os.environ.get('WARLON_PASSWORD')
+
+        if username and password:
+            _clients[session_id].login(username, password)
 
     return _clients[session_id]
 
