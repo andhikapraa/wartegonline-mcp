@@ -3,9 +3,6 @@ startCommand:
   type: http
   configSchema:
     type: object
-    required:
-      - warlon_username
-      - warlon_password
     properties:
       warlon_username:
         type: string
