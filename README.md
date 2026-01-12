@@ -53,7 +53,7 @@ You'll need:
 Open your terminal and run:
 
 ```bash
-npx -y @smithery/cli install @anthropics/warlon-mcp --client claude
+npx -y @smithery/cli install @pras/wartegonline-mcp --client claude
 ```
 
 #### Option 2: Manual Setup
