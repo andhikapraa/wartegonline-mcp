@@ -1,7 +1,7 @@
 [project]
-name = "warungonline"
+name = "wartegonline-mcp"
 version = "0.1.0"
-description = "MCP server for Warlon Catering self-service platform"
+description = "MCP server for Warteg Online meal delivery management"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
@@ -10,6 +10,9 @@ dependencies = [
     "uvicorn>=0.30.0",
     "starlette>=0.38.0",
 ]
+
+[tool.setuptools]
+py-modules = ["warlon_mcp", "warlon_client"]
 
 [project.scripts]
 warlon-mcp = "warlon_mcp:main"

@@ -7,6 +7,7 @@ RUN pip install uv
 
 # Copy project files
 COPY pyproject.toml .
+COPY README.md .
 COPY warlon_client.py .
 COPY warlon_mcp.py .
 
