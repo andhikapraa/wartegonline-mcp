@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/andhikapraa-wartegonline-mcp-badge.png)](https://mseep.ai/app/andhikapraa-wartegonline-mcp)
+
 # Warteg Online MCP Server
 
 Manage your Warteg Online meal deliveries using AI assistants like Claude. Simply talk to Claude in natural language to view, reschedule, or manage your daily meal subscriptions.
